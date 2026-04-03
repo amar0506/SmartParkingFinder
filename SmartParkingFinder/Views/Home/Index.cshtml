@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<style>
+
+    body {
+        background: linear-gradient(135deg,#e0f2fe,#f1f5f9);
+        font-family: 'Poppins','Segoe UI',sans-serif;
+    }
+
+    /* MAIN CARD */
+    .hero-box {
+        margin-top: 80px;
+        padding: 70px 40px;
+        background: rgba(255,255,255,0.75);
+        backdrop-filter: blur(18px);
+        border-radius: 22px;
+        box-shadow: 0 20px 45px rgba(0,0,0,0.08);
+        transition: 0.3s;
+    }
+
+        .hero-box:hover {
+            transform: translateY(-5px);
+        }
+
+    /* LOGO CIRCLE */
+    .logo-circle {
+        width: 95px;
+        height: 95px;
+        background: linear-gradient(135deg,#2563eb,#38bdf8);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 38px;
+        color: white;
+        margin: auto;
+        box-shadow: 0 10px 30px rgba(37,99,235,0.4);
+    }
+
+    /* TITLE */
+    .hero-title {
+        font-size: 48px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        background: linear-gradient(90deg,#1e293b,#2563eb);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* SUBTITLE */
+    .hero-sub {
+        font-size: 19px;
+        color: #475569;
+        margin-top: 12px;
+    }
+
+    /* BUTTON STYLE */
+    .glow-btn {
+        padding: 14px 30px;
+        border-radius: 14px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .glow-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+</style>
+
+<div class="container text-center">
+
+    <div class="hero-box">
+
+        <div class="logo-circle">🚗</div>
+
+        <h1 class="hero-title mt-4">
+            Smart Parking Finder System
+        </h1>
+
+        <p class="hero-sub">
+            Discover nearby parking with live slot tracking, smart booking and modern UI experience.
+        </p>
+
+        <div class="mt-5">
+
+            <a asp-controller="Parking"
+               asp-action="ShowParking"
+               class="btn btn-primary glow-btn me-3">
+                🔍 Find Parking
+            </a>
+
+            <a asp-controller="Account"
+               asp-action="Login"
+               class="btn btn-outline-dark glow-btn">
+                🔐 Login
+            </a>
+           
+        </div>
+
+    </div>
+
+</div>

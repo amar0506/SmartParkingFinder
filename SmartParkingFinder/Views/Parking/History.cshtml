@@ -1,0 +1,51 @@
+﻿@model List<string>
+
+@{
+    ViewData["Title"] = "Booking History";
+}
+
+<h2 class="text-center mt-4">📜 Parking Booking History</h2>
+
+<div class="container mt-4">
+
+    @if (!Model.Any())
+    {
+        <h4 class="text-center text-muted mt-5">No booking history found 🚫</h4>
+    }
+    else
+    {
+        <div class="card shadow-lg p-3">
+            <div class="text-end mb-3">
+                <a asp-controller="Parking" asp-action="ClearHistory"
+                   class="btn btn-danger">
+                    🗑 Clear History
+                </a>
+            </div>
+            <table class="table table-bordered table-hover text-center">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>📍 Location</th>
+                        <th>🅿 Slot</th>
+                        <th>⏰ Date & Time</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var data = item.Split('|');
+
+                        <tr>
+                            <td>@data[0]</td>
+                            <td>@data[1]</td>
+                            <td>@data[2]</td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    }
+
+</div>

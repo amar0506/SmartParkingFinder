@@ -1,0 +1,115 @@
+﻿<h2>👑 Admin Dashboard</h2>
+
+<!-- 🔷 Cards --  
+<style>
+    .card-box {
+        padding: 20px;
+        color: white;
+        border-radius: 12px;
+        transition: 0.3s;
+        cursor: pointer;
+        text-align: center;
+        min-width: 120px;
+    }
+
+        .card-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+</style>
+<div style="display:flex; gap:20px; margin-top:30px; justify-content:center;">
+    <div class="text-center mt-4">
+    <a asp-controller="Parking" asp-action="FindParking" class="btn btn-primary">
+        🚗 Show Parking Locations
+    </a>
+</div>
+
+    <div class="card-box" style="background:#007bff;">
+        Users: @ViewBag.Users
+    </div>
+
+    <div class="card-box" style="background:#28a745;">
+        Bookings: @ViewBag.Bookings
+    </div>
+
+    <div class="card-box" style="background:#ffc107; color:black;">
+        Available Slots: @ViewBag.Slots
+    </div>
+
+</div>
+
+    <div style="padding:20px; background:#28a745; color:white; border-radius:10px;">
+        Bookings: @ViewBag.Bookings
+    </div>
+
+    <div style="padding:20px; background:#ffc107; border-radius:10px;">
+        Available Slots: @ViewBag.Slots
+    </div>
+
+</div>
+
+<!-- 📊 GRAPH -->
+<div style="width:400px; margin:40px auto;">
+    <canvas id="myChart"></canvas>
+</div>
+
+<!-- 📊 Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Users', 'Bookings', 'Slots'],
+            datasets: [{
+                label: 'System Data',
+                data: [@ViewBag.Users, @ViewBag.Bookings, @ViewBag.Slots],
+                backgroundColor: ['blue', 'green', 'orange'], // 🔥 PRO COLOR
+                borderRadius: 8
+            }]
+        }
+    });
+</script>
+<script>
+    setTimeout(function () {
+        location.reload();
+    }, 5000); // 5 seconds
+</script>
+
+<!-- 🔘 Buttons -->
+<div style="text-align:center; margin-top:30px;">
+    <a href="/Admin/AllBookings" class="btn btn-dark">View All Bookings</a>
+    <a href="/Admin/Logout" class="btn btn-danger">Logout</a>
+</div>
+<button onclick="toggleDark()" class="btn btn-dark">🌙 Dark Mode</button>
+<div id="loader" style="position:fixed; width:100%; height:100%; background:white; display:flex; justify-content:center; align-items:center;">
+    <h2>Loading...</h2>
+</div>
+
+<script>
+    window.onload = function() {
+        document.getElementById("loader").style.display = "none";
+    }
+</script>
+
+<script>
+    function toggleDark() {
+        document.body.classList.toggle("dark-mode");
+    }
+</script>
+
+<style>
+    .dark-mode {
+        background: #121212;
+        color: white;
+    }
+
+        .dark-mode .card-box {
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
+        }
+</style>
+<script>
+    setTimeout(() => location.reload(), 5000);
+</script>
