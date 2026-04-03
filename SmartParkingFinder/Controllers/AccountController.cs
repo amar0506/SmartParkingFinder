@@ -23,8 +23,8 @@ namespace SmartParkingFinder.Controllers
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
-            string connStr = "Server=SmartParkingDB.mssql.somee.com;Database=SmartParkingDB;User Id=amar05_SQLLogin_1;Password=zf2vmy8o1g;TrustServerCertificate=True;";
 
+            string connStr = "workstation id=SmartParkingDB.mssql.somee.com;packet size=4096;user id=amar05_SQLLogin_1;password=zf2vmy8o1g;data source=SmartParkingDB.mssql.somee.com;persist security info=False;initial catalog=SmartParkingDB;TrustServerCertificate=True";
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 conn.Open();
