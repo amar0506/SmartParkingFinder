@@ -23,9 +23,33 @@ namespace SmartParkingFinder.Controllers
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
-            return Content("Username =" + username + "Password =" + password);
+            string connStr = "Server=SmartParkingDB.mssql.somee.com;Database=SmartParkingDB;User Id=amar05_SQLLogin_1;Password=zf2vmy8o1g;TrustServerCertificate=True;";
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+
+                string query = "SELECT COUNT(*) FROM Users WHERE Username=@username AND Password=@password";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password", password);
+
+                int count = (int)cmd.ExecuteScalar();
+
+                if (count > 0)
+                {
+                    HttpContext.Session.SetString("username", username);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.Error = "Invalid username or password";
+                    return View();
+                }
+            }
         }
-           
+
         public IActionResult Register()
         {
             return View();
