@@ -23,7 +23,7 @@ namespace SmartParkingFinder.Controllers
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
-            string connStr = "Server=SmartParkingDB.mssql.somee.com;Database=SmartParkingDB;User Id=amar05_SQLLogin_1;Password=zf2vmy8o1g;TrustServerCertificate=True;";
+            string connStr = _configuration.GetConnectionString("DefaultConnection");
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
@@ -31,21 +31,22 @@ namespace SmartParkingFinder.Controllers
 
                 string query = "SELECT COUNT(*) FROM Users WHERE Username=@username AND [Password]=@password";
 
-                SqlCommand cmd = new SqlCommand(query, conn);
-
-                cmd.Parameters.AddWithValue("@username", username);
-                cmd.Parameters.AddWithValue("@password", password);
-
-                int count = Convert.ToInt32(cmd.ExecuteScalar());
-
-                if (count > 0)
+                using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    return RedirectToAction("Index", "Home");
-                }
+                    cmd.Parameters.AddWithValue("@username", username);
+                    cmd.Parameters.AddWithValue("@password", password);
 
-                ViewBag.Error = "Invalid username or password";
-                return View();
+                    int count = (int)cmd.ExecuteScalar();
+
+                    if (count > 0)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
             }
+
+            ViewBag.Error = "Invalid username or password";
+            return View();
         }
 
         public IActionResult Register()
