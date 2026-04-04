@@ -7,7 +7,7 @@ namespace SmartParkingFinder.Controllers
 {
     public class ParkingController : Controller
     {
-        string connStr = "Server=.\\SQLEXPRESS;Database=SmartParkingDB;Trusted_Connection=True;";
+        string connStr = "workstation id=SmartParkingDB.mssql.somee.com;packet size=4096;user id=yourUser;password=zf2vmy8o1g;data source=SmartParkingDB.mssql.somee.com;persist security info=False;initial catalog=SmartParkingDB";
 
         private bool IsLoggedIn()
         {
