@@ -25,7 +25,7 @@ namespace SmartParkingFinder.Controllers
         {
             if (username == "admin" && password == "123")
             {
-                HttpContext.Session.SetString("user", username);
+                HttpContext.Session.SetString("User", username);
                 return RedirectToAction("Index", "Home");
             }
 

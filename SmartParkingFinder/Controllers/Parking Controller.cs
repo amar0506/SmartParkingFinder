@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartParkingFinder.Models;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 namespace SmartParkingFinder.Controllers
 {
@@ -63,7 +63,7 @@ namespace SmartParkingFinder.Controllers
                 conn.Open();
 
                 // slot booked
-                string update = "UPDATE ParkingSlots SET IsBooked = 1 WHERE SlotName=@slot AND Location=@LOC";
+                string update = "UPDATE ParkingSlots SET IsBooked = 1 WHERE SlotName=@slot AND Location=@lOC";
                 SqlCommand cmd = new SqlCommand(update, conn);
                 cmd.Parameters.AddWithValue("@slot", slot);
                 cmd.Parameters.AddWithValue("@loc", location);
