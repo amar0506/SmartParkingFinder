@@ -23,32 +23,29 @@ namespace SmartParkingFinder.Controllers
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
-            string connStr = _configuration.GetConnectionString("DefaultConnection");
+            string connStr = "Server=SmartParkingDB.mssql.somee.com;Database=SmartParkingDB;User Id=amar05_SQLLogin_1;Password=zf2vmy8o1g;TrustServerCertificate=True;";
 
-            using (SqlConnection conn = new SqlConnection(connStr))
+            SqlConnection conn = new SqlConnection(connStr);
+            conn.Open();
+
+            string query = "SELECT Username, Password FROM Users";
+
+            SqlCommand cmd = new SqlCommand(query, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
             {
-                conn.Open();
+                string dbUser = reader["Username"].ToString();
+                string dbPass = reader["Password"].ToString();
 
-                string query = "SELECT COUNT(*) FROM Users WHERE Username=@username AND [Password]=@password";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                if (username == dbUser && password == dbPass)
                 {
-                    cmd.Parameters.AddWithValue("@username", username);
-                    cmd.Parameters.AddWithValue("@password", password);
-
-                    int count = (int)cmd.ExecuteScalar();
-
-                    if (count > 0)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+                    return RedirectToAction("Index", "Home");
                 }
             }
 
-            ViewBag.Error = "Invalid username or password";
-            return View();
+            return Content("Login Failed");
         }
-
         public IActionResult Register()
         {
             return View();
