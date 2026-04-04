@@ -14,7 +14,7 @@ namespace SmartParkingFinder.Controllers
         {
             _configuration = configuration;
         }
-
+       
         public IActionResult Login()
         {
             return View();
@@ -23,19 +23,20 @@ namespace SmartParkingFinder.Controllers
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
-
             string connStr = "workstation id=SmartParkingDB.mssql.somee.com;packet size=4096;user id=amar05_SQLLogin_1;password=zf2vmy8o1g;data source=SmartParkingDB.mssql.somee.com;persist security info=False;initial catalog=SmartParkingDB;TrustServerCertificate=True";
+
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 conn.Open();
 
-                string query = "SELECT COUNT(*) FROM Users WHERE Username=@username AND Password=@password";
+                string query = "SELECT COUNT(*) FROM Users WHERE Username = @username AND Password = @password";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
+
                 cmd.Parameters.AddWithValue("@username", username);
                 cmd.Parameters.AddWithValue("@password", password);
 
-                int count = (int)cmd.ExecuteScalar();
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
 
                 if (count > 0)
                 {
