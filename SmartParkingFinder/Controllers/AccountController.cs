@@ -32,7 +32,7 @@ namespace SmartParkingFinder.Controllers
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
 
-                cmd.CommandText = "SELECT COUNT(*) FROM Users WHERE Username=@username AND Password=@password";
+                string query = "SELECT COUNT(*) FROM Users WHERE Username=@username AND [Password]=@password";
 
                 cmd.Parameters.Add("@username", SqlDbType.NVarChar).Value = username;
                 cmd.Parameters.Add("@password", SqlDbType.NVarChar).Value = password;
