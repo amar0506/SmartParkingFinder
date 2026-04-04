@@ -29,25 +29,23 @@ namespace SmartParkingFinder.Controllers
             {
                 conn.Open();
 
-                string query = "SELECT COUNT(*) FROM Users WHERE Username = @username AND Password = @password";
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
 
-                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.CommandText = "SELECT COUNT(*) FROM Users WHERE Username=@username AND Password=@password";
 
-                cmd.Parameters.AddWithValue("@username", username);
-                cmd.Parameters.AddWithValue("@password", password);
+                cmd.Parameters.Add("@username", SqlDbType.NVarChar).Value = username;
+                cmd.Parameters.Add("@password", SqlDbType.NVarChar).Value = password;
 
                 int count = Convert.ToInt32(cmd.ExecuteScalar());
 
                 if (count > 0)
                 {
-                    HttpContext.Session.SetString("username", username);
                     return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    ViewBag.Error = "Invalid username or password";
-                    return View();
-                }
+
+                ViewBag.Error = "Invalid username or password";
+                return View();
             }
         }
 
